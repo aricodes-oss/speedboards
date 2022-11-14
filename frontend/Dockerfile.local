@@ -1,0 +1,12 @@
+FROM node:latest
+
+WORKDIR /code
+
+RUN npm install -g pnpm
+RUN pnpm config set store-dir /code/.pnpm-store
+COPY .pnpm-store /code/.pnpm-store
+
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install
+
+CMD ["pnpm", "dev"]
